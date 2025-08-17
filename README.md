@@ -1,5 +1,6 @@
 Ambuj Kumar Tripathi - AI Tech Innovator Portfolio
 <img width="749" height="433" alt="github repo" src="https://github.com/user-attachments/assets/e3df5ea3-22fd-43f7-8d78-b0a7e806de7d" />
+
 This is my personal portfolio website showcasing my journey as a self-taught AI/ML Engineer and Prompt Engineering Expert. With a background in telecom and a passion for Generative AI, I highlight my skills, certifications, projects, and videos. The site features an interactive AI chatbot powered by Llama 3.70B for engaging with my resume details.
 ✨ Features
 Clean and Modern Design: A sleek, user-friendly interface to provide a smooth browsing experience.
