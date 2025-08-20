@@ -617,393 +617,437 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Branching Workflow Sample</title>
+    <title>AI-Accelerated Development Process</title>
     <style>
-        * {
+        .ai-flowchart-wrapper * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        
+        .ai-flowchart-wrapper {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
-            overflow-x: auto;
+            color: white;
         }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+        
+        .ai-flowchart-wrapper .container {
             text-align: center;
-            padding: 20px;
+            max-width: 1000px;
+            width: 100%;
         }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #ff4757, #3742fa);
+        
+        .ai-flowchart-wrapper .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #fff, #f0f8ff);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
-
-        .start-btn {
-            background: linear-gradient(45deg, #ff4757, #ff3742);
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            color: white;
-            font-size: 1.1em;
-            cursor: pointer;
+        
+        .ai-flowchart-wrapper .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
             margin-bottom: 40px;
-            transition: all 0.3s ease;
+            font-weight: 300;
         }
-
-        .start-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(255, 71, 87, 0.4);
-        }
-
-        .flowchart {
+        
+        .ai-flowchart-wrapper .flowchart {
             position: relative;
             width: 100%;
-            min-height: 600px;
-            margin: 0 auto;
+            height: 600px;
+            margin: 40px auto;
         }
-
-        .node {
+        
+        .ai-flowchart-wrapper .node {
             position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
             padding: 20px;
-            min-width: 180px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
             text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
             opacity: 0;
-            transform: scale(0);
-            transition: all 0.6s ease;
-            cursor: pointer;
+            transform: translateY(30px) scale(0.9);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 1.4;
+            width: 180px;
         }
-
-        .node.active {
+        
+        .ai-flowchart-wrapper .node.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .ai-flowchart-wrapper .node.traditional {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+        }
+        
+        .ai-flowchart-wrapper .node.ai {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: white;
+        }
+        
+        .ai-flowchart-wrapper .node.process {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #333;
+        }
+        
+        .ai-flowchart-wrapper .node.outcome {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            color: #333;
+        }
+        
+        .ai-flowchart-wrapper .connection {
+            position: absolute;
+            height: 3px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4));
+            border-radius: 2px;
+            opacity: 0;
+            transform-origin: left center;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .ai-flowchart-wrapper .connection.vertical {
+            width: 3px;
+            transform-origin: center top;
+        }
+        
+        .ai-flowchart-wrapper .connection.show {
             opacity: 1;
             transform: scale(1);
         }
-
-        .node.start {
-            background: linear-gradient(45deg, #e72309, #1e1eff);
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%) scale(0);
+        
+        .ai-flowchart-wrapper .arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .node.start.active {
-            transform: translateX(-50%) scale(1);
+        
+        .ai-flowchart-wrapper .arrow.right {
+            border-left: 8px solid rgba(255,255,255,0.8);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
         }
-
-        .node.decision {
-            background: linear-gradient(45deg, #ffa502, #ff6348);
-            border-radius: 50%;
-            width: 200px;
-            height: 200px;
+        
+        .ai-flowchart-wrapper .arrow.down {
+            border-top: 8px solid rgba(255,255,255,0.8);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+        }
+        
+        .ai-flowchart-wrapper .arrow.show {
+            opacity: 1;
+        }
+        
+        .ai-flowchart-wrapper .controls {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .ai-flowchart-wrapper .btn {
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .ai-flowchart-wrapper .btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .ai-flowchart-wrapper .btn.primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+        }
+        
+        .ai-flowchart-wrapper .btn.primary:hover {
+            background: linear-gradient(135deg, #7c8eee, #8a5bb8);
+        }
+        
+        .ai-flowchart-wrapper .legend {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .ai-flowchart-wrapper .legend-item {
             display: flex;
             align-items: center;
-            justify-content: center;
-            top: 200px;
-            left: 50%;
-            transform: translateX(-50%) scale(0);
+            gap: 10px;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
         }
-
-        .node.decision.active {
-            transform: translateX(-50%) scale(1);
+        
+        .ai-flowchart-wrapper .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3);
         }
-
-        .node.left-branch {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-            top: 350px;
-            left: 15%;
+        
+        .ai-flowchart-wrapper .traditional-color {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
         }
-
-        .node.right-branch {
-            background: linear-gradient(45deg, #5f27cd, #00d2d3);
-            top: 350px;
-            right: 15%;
+        
+        .ai-flowchart-wrapper .ai-color {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
         }
-
-        .node.merge {
-            background: linear-gradient(45deg, #ff4757, #3742fa);
-            top: 500px;
-            left: 50%;
-            transform: translateX(-50%) scale(0);
+        
+        .ai-flowchart-wrapper .process-color {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
         }
-
-        .node.merge.active {
-            transform: translateX(-50%) scale(1);
+        
+        .ai-flowchart-wrapper .outcome-color {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
         }
-
-        .connection-line {
-            position: absolute;
-            background: #ff4757;
-            height: 3px;
-            opacity: 0;
-            transition: all 0.8s ease;
-            z-index: -1;
-        }
-
-        .connection-line.active {
-            opacity: 1;
-        }
-
-        /* Vertical lines */
-        .line-1 {
-            top: 130px;
-            left: 50%;
-            width: 3px;
-            height: 80px;
-            transform: translateX(-50%);
-            background: linear-gradient(to bottom, #2ed573, #ffa502);
-        }
-
-        .line-2-left {
-            top: 300px;
-            left: 30%;
-            width: 20%;
-            height: 3px;
-            background: linear-gradient(to left, #ffa502, #ff6b6b);
-        }
-
-        .line-2-right {
-            top: 320px;
-            right: 30%;
-            width: 20%;
-            height: 3px;
-            background: linear-gradient(to right, #ffa502, #5f27cd);
-        }
-
-        .line-3-left {
-            top: 430px;
-            left: 25%;
-            width: 3px;
-            height: 80px;
-            background: linear-gradient(to bottom, #ff6b6b, #ff4757);
-        }
-
-        .line-3-right {
-            top: 430px;
-            right: 25%;
-            width: 3px;
-            height: 80px;
-            background: linear-gradient(to bottom, #5f27cd, #3742fa);
-        }
-
-        .line-4 {
-            top: 500px;
-            left: 25%;
-            width: 50%;
-            height: 3px;
-            background: linear-gradient(to right, #ff4757, #3742fa);
-        }
-
-        .node-title {
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-bottom: 8px;
-        }
-
-        .node-desc {
-            font-size: 0.9em;
-            opacity: 0.9;
-        }
-
-        .label {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.8em;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .label.active {
-            opacity: 1;
-        }
-
-        .label-no {
-            top: 300px;
-            left: 20%;
-            color: #ff6b6b;
-        }
-
-        .label-yes {
-            top: 320px;
-            right: 20%;
-            color: #5f27cd;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .node.active:hover {
-            animation: pulse 2s infinite;
-        }
-
+        
         @media (max-width: 768px) {
-            .flowchart {
+            .ai-flowchart-wrapper .title {
+                font-size: 2rem;
+            }
+            
+            .ai-flowchart-wrapper .flowchart {
+                height: 500px;
                 transform: scale(0.8);
-                margin-top: -50px;
             }
             
-            .node {
-                min-width: 150px;
+            .ai-flowchart-wrapper .node {
+                width: 160px;
                 padding: 15px;
+                font-size: 12px;
             }
-            
-            .node.decision {
-                width: 150px;
-                height: 150px;
-            }
+        }
+        
+        .ai-flowchart-wrapper .pulse {
+            animation: aiFlowchartPulse 2s infinite;
+        }
+        
+        @keyframes aiFlowchartPulse {
+            0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🌳 Branching Workflow Sample</h1>
-            <p>Interactive Flowchart with Multiple Paths</p>
-            <button class="start-btn" onclick="startAnimation()">▶️ Start Animation</button>
-        </div>
-
-        <div class="flowchart">
-            <!-- Start Node -->
-            <div class="node start" id="node-start">
-                <div class="node-title">💡 Project Idea</div>
-                <div class="node-desc">Project concept & problem identification</div>
-            </div>
-
-            <!-- Decision Node -->
-            <div class="node decision" id="node-decision">
-                <div>
-                    <div class="node-title">🤔 Approach?</div>
-                    <div class="node-desc">Client Discussion Collaboration & feedback loops.<br>Choose development method<br></div>
+    <div class="ai-flowchart-wrapper">
+        <div class="container">
+            <h1 class="title">AI-Accelerated Development</h1>
+            <p class="subtitle">Modern Software Development Process Comparison</p>
+            
+            <div class="flowchart">
+                <!-- Row 1 - Initial Process -->
+                <div id="node1" class="node process" style="top: 50px; left: 50px;">
+                    💡 Idea &<br>Requirements<br>Analysis
+                </div>
+                
+                <div id="conn1" class="connection" style="top: 85px; left: 240px; width: 80px;"></div>
+                <div id="arrow1" class="arrow right" style="top: 82px; left: 312px;"></div>
+                
+                <div id="node2" class="node process" style="top: 50px; left: 330px;">
+                    👥 Team<br>Collaboration &<br>Planning
+                </div>
+                
+                <div id="conn2" class="connection" style="top: 85px; left: 520px; width: 80px;"></div>
+                <div id="arrow2" class="arrow right" style="top: 82px; left: 592px;"></div>
+                
+                <div id="node3" class="node process" style="top: 50px; left: 610px;">
+                    ⚙️ Development<br>Approach<br>Decision
+                </div>
+                
+                <!-- Vertical connectors -->
+                <div id="conn3" class="connection vertical" style="top: 140px; left: 228px; height: 80px;"></div>
+                <div id="arrow3" class="arrow down" style="top: 212px; left: 225px;"></div>
+                
+                <div id="conn4" class="connection vertical" style="top: 140px; left: 688px; height: 80px;"></div>
+                <div id="arrow4" class="arrow down" style="top: 212px; left: 685px;"></div>
+                
+                <!-- Row 2 - Development Methods -->
+                <div id="node4" class="node traditional" style="top: 230px; left: 140px;">
+                    🔨 Manual Coding<br>Line by Line<br>Traditional Way
+                </div>
+                
+                <div id="node5" class="node ai" style="top: 230px; left: 600px;">
+                    🤖 Smart Prompting<br>LLM Integration<br>AI-Powered
+                </div>
+                
+                <!-- Convergence connectors -->
+                <div id="conn5" class="connection" style="top: 320px; left: 330px; width: 100px; transform-origin: left center; transform: rotate(20deg);"></div>
+                <div id="arrow5" class="arrow right" style="top: 325px; left: 420px; transform: rotate(20deg);"></div>
+                
+                <div id="conn6" class="connection" style="top: 320px; left: 530px; width: 100px; transform-origin: right center; transform: rotate(-20deg);"></div>
+                <div id="arrow6" class="arrow right" style="top: 325px; left: 520px; transform: rotate(-20deg);"></div>
+                
+                <!-- Row 3 - Output -->
+                <div id="node6" class="node outcome" style="top: 380px; left: 370px;">
+                    🚀 Testing &<br>Quality Assurance<br>Process
+                </div>
+                
+                <div id="conn7" class="connection vertical" style="top: 470px; left: 458px; height: 60px;"></div>
+                <div id="arrow7" class="arrow down" style="top: 522px; left: 455px;"></div>
+                
+                <div id="node7" class="node outcome" style="top: 540px; left: 370px;">
+                    ✅ Final Delivery<br>& Deployment<br>Success
                 </div>
             </div>
-
-            <!-- Left Branch - Traditional -->
-            <div class="node left-branch" id="node-left">
-                <div class="node-title">⚙️ Traditional</div>
-                <div class="node-desc">Manual coding<br>Time: 2-3 weeks</div>
+            
+            <div class="controls">
+                <button class="btn primary" onclick="startAnimation()">▶️ Start Animation</button>
+                <button class="btn" onclick="resetAnimation()">🔄 Reset</button>
+                <button class="btn" onclick="fastForward()">⏭️ Skip to End</button>
             </div>
-
-            <!-- Right Branch - AI-Assisted -->
-            <div class="node right-branch" id="node-right">
-                <div class="node-title">🤖 AI-Assisted</div>
-                <div class="node-desc">Smart prompting<br>Smart development with LLMs<br>Time: 3-5 days<br></div>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color process-color"></div>
+                    <span>Process Steps</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color traditional-color"></div>
+                    <span>Traditional Approach</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color ai-color"></div>
+                    <span>AI-Powered Approach</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color outcome-color"></div>
+                    <span>Output & Results</span>
+                </div>
             </div>
-
-            <!-- Merge Node -->
-            <div class="node merge" id="node-merge">
-                <div class="node-title">🚀 Final Delivery</div>
-                <div class="node-desc">Testing & deployment & Support</div>
-            </div>
-
-            <!-- Connection Lines -->
-            <div class="connection-line line-1" id="line-1"></div>
-            <div class="connection-line line-2-left" id="line-2-left"></div>
-            <div class="connection-line line-2-right" id="line-2-right"></div>
-            <div class="connection-line line-3-left" id="line-3-left"></div>
-            <div class="connection-line line-3-right" id="line-3-right"></div>
-            <div class="connection-line line-4" id="line-4"></div>
-
-            <!-- Labels -->
-            <div class="label label-no" id="label-no">❌ Slow</div>
-            <div class="label label-yes" id="label-yes">✅ Fast</div>
         </div>
     </div>
 
     <script>
-        let animationStep = 0;
-        const animationSteps = [
-            () => showNode('node-start'),
-            () => showLine('line-1'),
-            () => showNode('node-decision'),
-            () => {
-                showLine('line-2-left');
-                showLine('line-2-right');
-            },
-            () => {
-                showNode('node-left');
-                showNode('node-right');
-                showLabel('label-no');
-                showLabel('label-yes');
-            },
-            () => {
-                showLine('line-3-left');
-                showLine('line-3-right');
-            },
-            () => showLine('line-4'),
-            () => showNode('node-merge')
-        ];
-
-        function showNode(nodeId) {
-            document.getElementById(nodeId).classList.add('active');
-        }
-
-        function showLine(lineId) {
-            document.getElementById(lineId).classList.add('active');
-        }
-
-        function showLabel(labelId) {
-            document.getElementById(labelId).classList.add('active');
-        }
-
+        let animationTimeout;
+        let isAnimating = false;
+        
         function startAnimation() {
-            // Reset everything
-            const allNodes = document.querySelectorAll('.node');
-            const allLines = document.querySelectorAll('.connection-line');
-            const allLabels = document.querySelectorAll('.label');
+            if (isAnimating) return;
             
-            allNodes.forEach(node => node.classList.remove('active'));
-            allLines.forEach(line => line.classList.remove('active'));
-            allLabels.forEach(label => label.classList.remove('active'));
-
-            animationStep = 0;
+            resetAnimation();
+            isAnimating = true;
             
-            // Start step-by-step animation
-            function nextStep() {
-                if (animationStep < animationSteps.length) {
-                    animationSteps[animationStep]();
-                    animationStep++;
-                    setTimeout(nextStep, 1000);
-                }
-            }
+            const sequence = [
+                { id: 'node1', delay: 500 },
+                { id: 'conn1', delay: 1000 },
+                { id: 'arrow1', delay: 1100 },
+                { id: 'node2', delay: 1400 },
+                { id: 'conn2', delay: 1900 },
+                { id: 'arrow2', delay: 2000 },
+                { id: 'node3', delay: 2300 },
+                { id: 'conn3', delay: 2800 },
+                { id: 'arrow3', delay: 2900 },
+                { id: 'conn4', delay: 3000 },
+                { id: 'arrow4', delay: 3100 },
+                { id: 'node4', delay: 3400 },
+                { id: 'node5', delay: 3600 },
+                { id: 'conn5', delay: 4100 },
+                { id: 'arrow5', delay: 4200 },
+                { id: 'conn6', delay: 4300 },
+                { id: 'arrow6', delay: 4400 },
+                { id: 'node6', delay: 4700 },
+                { id: 'conn7', delay: 5200 },
+                { id: 'arrow7', delay: 5300 },
+                { id: 'node7', delay: 5600 }
+            ];
             
-            setTimeout(nextStep, 500);
+            sequence.forEach(({ id, delay }) => {
+                animationTimeout = setTimeout(() => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.classList.add('show');
+                        
+                        // Add pulse effect to key nodes
+                        if (id === 'node4' || id === 'node5') {
+                            setTimeout(() => {
+                                element.classList.add('pulse');
+                                setTimeout(() => {
+                                    element.classList.remove('pulse');
+                                }, 2000);
+                            }, 200);
+                        }
+                    }
+                    
+                    if (id === 'node7') {
+                        isAnimating = false;
+                    }
+                }, delay);
+            });
         }
-
-        // Auto-start on page load
+        
+        function resetAnimation() {
+            clearTimeout(animationTimeout);
+            isAnimating = false;
+            
+            document.querySelectorAll('.node, .connection, .arrow').forEach(el => {
+                el.classList.remove('show', 'pulse');
+            });
+        }
+        
+        function fastForward() {
+            clearTimeout(animationTimeout);
+            isAnimating = false;
+            
+            document.querySelectorAll('.node, .connection, .arrow').forEach(el => {
+                el.classList.add('show');
+            });
+        }
+        
+        // Auto-start animation when page loads
         window.addEventListener('load', () => {
             setTimeout(startAnimation, 1000);
         });
-
-        // Click interaction
+        
+        // Add hover effects
         document.querySelectorAll('.node').forEach(node => {
-            node.addEventListener('click', function() {
-                this.style.transform += ' rotateY(360deg)';
-                setTimeout(() => {
-                    this.style.transform = this.style.transform.replace(' rotateY(360deg)', '');
-                }, 600);
+            node.addEventListener('mouseenter', () => {
+                if (!node.classList.contains('pulse')) {
+                    node.style.transform += ' scale(1.05)';
+                }
+            });
+            
+            node.addEventListener('mouseleave', () => {
+                node.style.transform = node.style.transform.replace(' scale(1.05)', '');
             });
         });
     </script>
 </body>
 </html>
-
 
 
 
