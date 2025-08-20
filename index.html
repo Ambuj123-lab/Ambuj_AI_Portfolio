@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ambuj Kumar Tripathi - AI Tech Innovator Portfolio</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-RZPS5NW5XT');
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -604,6 +612,405 @@
     </div>
   </div>
 </section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branching Workflow Sample</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff4757, #3742fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #ff4757, #ff3742);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(255, 71, 87, 0.4);
+        }
+
+        .flowchart {
+            position: relative;
+            width: 100%;
+            min-height: 600px;
+            margin: 0 auto;
+        }
+
+        .node {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 180px;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.6s ease;
+            cursor: pointer;
+        }
+
+        .node.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .node.start {
+            background: linear-gradient(45deg, #e72309, #1e1eff);
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+        }
+
+        .node.start.active {
+            transform: translateX(-50%) scale(1);
+        }
+
+        .node.decision {
+            background: linear-gradient(45deg, #ffa502, #ff6348);
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 200px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+        }
+
+        .node.decision.active {
+            transform: translateX(-50%) scale(1);
+        }
+
+        .node.left-branch {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            top: 350px;
+            left: 15%;
+        }
+
+        .node.right-branch {
+            background: linear-gradient(45deg, #5f27cd, #00d2d3);
+            top: 350px;
+            right: 15%;
+        }
+
+        .node.merge {
+            background: linear-gradient(45deg, #ff4757, #3742fa);
+            top: 500px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+        }
+
+        .node.merge.active {
+            transform: translateX(-50%) scale(1);
+        }
+
+        .connection-line {
+            position: absolute;
+            background: #ff4757;
+            height: 3px;
+            opacity: 0;
+            transition: all 0.8s ease;
+            z-index: -1;
+        }
+
+        .connection-line.active {
+            opacity: 1;
+        }
+
+        /* Vertical lines */
+        .line-1 {
+            top: 130px;
+            left: 50%;
+            width: 3px;
+            height: 80px;
+            transform: translateX(-50%);
+            background: linear-gradient(to bottom, #2ed573, #ffa502);
+        }
+
+        .line-2-left {
+            top: 300px;
+            left: 30%;
+            width: 20%;
+            height: 3px;
+            background: linear-gradient(to left, #ffa502, #ff6b6b);
+        }
+
+        .line-2-right {
+            top: 320px;
+            right: 30%;
+            width: 20%;
+            height: 3px;
+            background: linear-gradient(to right, #ffa502, #5f27cd);
+        }
+
+        .line-3-left {
+            top: 430px;
+            left: 25%;
+            width: 3px;
+            height: 80px;
+            background: linear-gradient(to bottom, #ff6b6b, #ff4757);
+        }
+
+        .line-3-right {
+            top: 430px;
+            right: 25%;
+            width: 3px;
+            height: 80px;
+            background: linear-gradient(to bottom, #5f27cd, #3742fa);
+        }
+
+        .line-4 {
+            top: 500px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, #ff4757, #3742fa);
+        }
+
+        .node-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .node-desc {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .label {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .label.active {
+            opacity: 1;
+        }
+
+        .label-no {
+            top: 300px;
+            left: 20%;
+            color: #ff6b6b;
+        }
+
+        .label-yes {
+            top: 320px;
+            right: 20%;
+            color: #5f27cd;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .node.active:hover {
+            animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .flowchart {
+                transform: scale(0.8);
+                margin-top: -50px;
+            }
+            
+            .node {
+                min-width: 150px;
+                padding: 15px;
+            }
+            
+            .node.decision {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌳 Branching Workflow Sample</h1>
+            <p>Interactive Flowchart with Multiple Paths</p>
+            <button class="start-btn" onclick="startAnimation()">▶️ Start Animation</button>
+        </div>
+
+        <div class="flowchart">
+            <!-- Start Node -->
+            <div class="node start" id="node-start">
+                <div class="node-title">💡 Project Idea</div>
+                <div class="node-desc">Project concept & problem identification</div>
+            </div>
+
+            <!-- Decision Node -->
+            <div class="node decision" id="node-decision">
+                <div>
+                    <div class="node-title">🤔 Approach?</div>
+                    <div class="node-desc">Client Discussion Collaboration & feedback loops.<br>Choose development method<br></div>
+                </div>
+            </div>
+
+            <!-- Left Branch - Traditional -->
+            <div class="node left-branch" id="node-left">
+                <div class="node-title">⚙️ Traditional</div>
+                <div class="node-desc">Manual coding<br>Time: 2-3 weeks</div>
+            </div>
+
+            <!-- Right Branch - AI-Assisted -->
+            <div class="node right-branch" id="node-right">
+                <div class="node-title">🤖 AI-Assisted</div>
+                <div class="node-desc">Smart prompting<br>Smart development with LLMs<br>Time: 3-5 days<br></div>
+            </div>
+
+            <!-- Merge Node -->
+            <div class="node merge" id="node-merge">
+                <div class="node-title">🚀 Final Delivery</div>
+                <div class="node-desc">Testing & deployment & Support</div>
+            </div>
+
+            <!-- Connection Lines -->
+            <div class="connection-line line-1" id="line-1"></div>
+            <div class="connection-line line-2-left" id="line-2-left"></div>
+            <div class="connection-line line-2-right" id="line-2-right"></div>
+            <div class="connection-line line-3-left" id="line-3-left"></div>
+            <div class="connection-line line-3-right" id="line-3-right"></div>
+            <div class="connection-line line-4" id="line-4"></div>
+
+            <!-- Labels -->
+            <div class="label label-no" id="label-no">❌ Slow</div>
+            <div class="label label-yes" id="label-yes">✅ Fast</div>
+        </div>
+    </div>
+
+    <script>
+        let animationStep = 0;
+        const animationSteps = [
+            () => showNode('node-start'),
+            () => showLine('line-1'),
+            () => showNode('node-decision'),
+            () => {
+                showLine('line-2-left');
+                showLine('line-2-right');
+            },
+            () => {
+                showNode('node-left');
+                showNode('node-right');
+                showLabel('label-no');
+                showLabel('label-yes');
+            },
+            () => {
+                showLine('line-3-left');
+                showLine('line-3-right');
+            },
+            () => showLine('line-4'),
+            () => showNode('node-merge')
+        ];
+
+        function showNode(nodeId) {
+            document.getElementById(nodeId).classList.add('active');
+        }
+
+        function showLine(lineId) {
+            document.getElementById(lineId).classList.add('active');
+        }
+
+        function showLabel(labelId) {
+            document.getElementById(labelId).classList.add('active');
+        }
+
+        function startAnimation() {
+            // Reset everything
+            const allNodes = document.querySelectorAll('.node');
+            const allLines = document.querySelectorAll('.connection-line');
+            const allLabels = document.querySelectorAll('.label');
+            
+            allNodes.forEach(node => node.classList.remove('active'));
+            allLines.forEach(line => line.classList.remove('active'));
+            allLabels.forEach(label => label.classList.remove('active'));
+
+            animationStep = 0;
+            
+            // Start step-by-step animation
+            function nextStep() {
+                if (animationStep < animationSteps.length) {
+                    animationSteps[animationStep]();
+                    animationStep++;
+                    setTimeout(nextStep, 1000);
+                }
+            }
+            
+            setTimeout(nextStep, 500);
+        }
+
+        // Auto-start on page load
+        window.addEventListener('load', () => {
+            setTimeout(startAnimation, 1000);
+        });
+
+        // Click interaction
+        document.querySelectorAll('.node').forEach(node => {
+            node.addEventListener('click', function() {
+                this.style.transform += ' rotateY(360deg)';
+                setTimeout(() => {
+                    this.style.transform = this.style.transform.replace(' rotateY(360deg)', '');
+                }, 600);
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
 
 <!-- SKILLS (Expand) -->
 <section id="skills" class="py-8">
