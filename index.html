@@ -5,15 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ambuj Kumar Tripathi - AI Tech Innovator Portfolio</title>
   <link rel="manifest" href="./manifest.json">
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('Service Worker: Registered'))
-          .catch(err => console.log(`Service Worker: Error: ${err}`));
-      });
-    }
-  </script>
+  
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
@@ -1774,26 +1766,45 @@
   typeEffect();
 </script>
 <script>
-    // ... tumhara existing script code ...
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        // Yeh line service worker ko sahi tarah se register karti hai
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('Service Worker: Registered'))
+          .catch(err => console.log(`Service Worker: Error: ${err}`));
+      });
+    }
 
-    // PWA 'Install App' button ka code yahan se shuru hota hai
     let deferredPrompt; 
+    const installBtn = document.getElementById('install-button');
+    
+    if (installBtn) {
+        installBtn.style.display = 'none'; // Button shuru mein hide rakho
+    }
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      const installBtn = document.getElementById('install-button');
       if (installBtn) {
-        installBtn.style.display = 'inline-block'; // 'block' ki jagah 'inline-block' kar diya, taki buttons side-by-side rahe
+        installBtn.style.display = 'inline-block'; // Button dikhao
       }
     });
 
-    document.getElementById('install-button').addEventListener('click', () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-      }
-    });
-
+    if (installBtn) {
+      installBtn.addEventListener('click', () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('PWA installation accepted');
+            } else {
+              console.log('PWA installation dismissed');
+            }
+            deferredPrompt = null;
+          });
+        }
+      });
+    }
 </script>
 
 
