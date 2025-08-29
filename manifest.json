@@ -1,7 +1,7 @@
 {
   "name": "Ambuj Kumar Tripathi's AI Portfolio",
   "short_name": "Ambuj AI",
-  "start_url": "./index.html",
+  "start_url": "/Ambuj_AI_Portfolio/",
   "display": "standalone",
   "background_color": "#0a0a1a",
   "theme_color": "#0073e6",
