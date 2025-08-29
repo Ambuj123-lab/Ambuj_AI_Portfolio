@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ambuj Kumar Tripathi - AI Tech Innovator Portfolio</title>
-  <link rel="manifest" href="/Ambuj_AI_Portfolio/manifest.json">
-  
+  <link rel="manifest" href="manifest.json">
+
+    
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
@@ -533,6 +534,14 @@
       <a href="#projects" class="hover:text-red-400 transition-all duration-300 hover:scale-105">Projects</a>
       <a href="#videos" class="hover:text-red-400 transition-all duration-300 hover:scale-105">Videos</a>
       <a href="#contact" class="hover:text-red-400 transition-all duration-300 hover:scale-105">Contact</a>
+      <!-- ✅ Stylish Install Button -->
+  <button id="install-button"
+          class="px-4 py-2 rounded-lg font-semibold shadow-md transition-all duration-300
+                 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500
+                 hover:from-yellow-500 hover:to-pink-500 hover:scale-105
+                 text-white tracking-wide">
+    📲 Add Ambuj AI to Device
+  </button>
     </div>
     <div class="flex gap-3">
       <a href="https://github.com/Ambuj123-lab" target="_blank" class="social-link text-xl hover:text-red-400"><i class="fab fa-github"></i></a>
@@ -568,16 +577,7 @@
     </a>
     <button onclick="openResumeModal()" class="glass-card px-7 py-2.5 rounded-full text-white font-semibold hover:text-red-400 transition-all duration-300 hover:scale-105">
       <i class="fas fa-file-pdf mr-2"></i>View Resume
-    </button>
-    <button id="install-button" style="display:none; /* Initially hidden */
-                                     padding: 10px 20px;
-                                     background-color: #0073e6;
-                                     color: white;
-                                     border: none;
-                                     border-radius: 5px;
-                                     cursor: pointer;">
-      Install App
-    </button>
+    
 </div>
   </div>
 </section>
@@ -1765,48 +1765,49 @@
   
   typeEffect();
 </script>
-<script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        // Yeh line service worker ko sahi tarah se register karti hai
-        navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('Service Worker: Registered'))
-          .catch(err => console.log(`Service Worker: Error: ${err}`));
-      });
-    }
+<script> 
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      // Service Worker ko register karo (sahi path use karo)
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('✅ Service Worker: Registered'))
+        .catch(err => console.log(`❌ Service Worker: Error: ${err}`));
+    });
+  }
 
-    let deferredPrompt; 
-    const installBtn = document.getElementById('install-button');
-    
+  let deferredPrompt; 
+  const installBtn = document.getElementById('install-button');
+  
+  
+
+  // Jab browser "install" option ready karega
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
     if (installBtn) {
-        installBtn.style.display = 'none'; // Button shuru mein hide rakho
+      installBtn.style.display = 'inline-block'; // Button show karo
     }
+  });
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      if (installBtn) {
-        installBtn.style.display = 'inline-block'; // Button dikhao
+  // Jab user button click karega
+  if (installBtn) {
+    installBtn.addEventListener('click', () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('✅ PWA installation accepted');
+          } else {
+            console.log('❌ PWA installation dismissed');
+          }
+          deferredPrompt = null;
+        });
       }
     });
-
-    if (installBtn) {
-      installBtn.addEventListener('click', () => {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-              console.log('PWA installation accepted');
-            } else {
-              console.log('PWA installation dismissed');
-            }
-            deferredPrompt = null;
-          });
-        }
-      });
-    }
+  }
 </script>
-
-
 </body>
 </html>
+
+
+
