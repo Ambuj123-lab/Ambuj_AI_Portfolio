@@ -50,6 +50,7 @@
       opacity: 0;
       transition: opacity 0.3s ease;
     }
+    
     .modal.active { 
       display:flex; 
       opacity: 1;
@@ -513,7 +514,63 @@
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.7; transform: scale(1.05); }
     }
+    /* PWA POPUP CSS START */
+    /* यह आपका नया CSS है जो आपको यहाँ जोड़ना है */
+    .pwa-modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.7);
+      animation: fadeIn 0.5s;
+    }
+
+    .pwa-modal-content {
+      background-color: #1a1a2e;
+      margin: 15% auto;
+      padding: 2rem;
+      border: 1px solid #0073e6;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 10px;
+      position: relative;
+      animation: slideDown 0.5s;
+      color: #e0e0e0;
+    }
+
+    .pwa-close-btn {
+      color: #aaa;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .pwa-close-btn:hover,
+    .pwa-close-btn:focus {
+      color: #fff;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    /* PWA POPUP CSS END */
+</style>
   </style>
+  
 </head>
 <body class="min-h-screen text-slate-200 relative">
 
@@ -578,6 +635,12 @@
     </a>
     <button onclick="openResumeModal()" class="glass-card px-7 py-2.5 rounded-full text-white font-semibold hover:text-red-400 transition-all duration-300 hover:scale-105">
       <i class="fas fa-file-pdf mr-2"></i>View Resume
+      <button id="pwa-info-btn" class="px-7 py-2.5 rounded-full font-semibold transition-all duration-300 
+               bg-green-500 hover:bg-green-800 
+               text-black shadow-md">
+    <i class="fas fa-info-circle mr-2"></i> PWA Details
+  </button>
+  </div>
     
 </div>
   </div>
@@ -1080,6 +1143,24 @@
             });
         });
     </script>
+    <div id="pwa-modal" class="modal">
+  <div class="modal-box p-8 text-center text-slate-200">
+    <button class="close-btn">&times;</button>
+    <div id="pwa-details">
+      <h2 class="text-2xl font-bold mb-4 text-white">This Portfolio is a PWA.</h2>
+      <p class="mb-4 text-slate-300">This portfolio is not just a website—it's a Progressive Web App (PWA). This means it offers a native app-like experience directly from your browser, showcasing a commitment to modern web technologies and a superior user experience.</p>
+      <ul class="text-left list-disc list-inside space-y-2 text-slate-300">
+        <li>**Installable:** You can add this portfolio to your home screen on any device for quick, one-tap access.</li>
+        <li>**Offline Accessible:** Thanks to a service worker, a cached version of the website is available offline.</li>
+        <li>**Enhanced Performance:** The use of a service worker results in lightning-fast load times.</li>
+        <li>**Showcasing Modern Skills:** The PWA implementation demonstrates practical expertise in modern web development.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script>...</script>
+<script>...</script>
+</body>
 </body>
 </html>
 
@@ -1839,66 +1920,56 @@
 
 </script>
 <script>
+  // टाइपराइटर इफ़ेक्ट के लिए आपका मौजूदा JavaScript कोड
   const titles = [
-    "AI/ML Solutions Architect | Prompt Engineering & Generative AI Specialist | Chatbot Developer | Telecom Infrastructure Expert",
-    "AI-Forward Design",
-    "Neural network inspired layouts",
-    "Generative/algorithmic patterns",
-    "Interactive ML model demonstrations",
-    "Purple/electric color palette",
-    "3D elements showing AI concepts"
+    "Transforming Ideas into Intelligent Solutions.",
+    "Bridging Telecom Expertise with AI Innovation.",
+    "Pioneering Conversational AI and Chatbot Development.",
+    "Crafting Prompts for Seamless Human-AI Interaction."
   ];
-  
   let index = 0;
   let charIndex = 0;
-  let currentTitle = "";
   let isDeleting = false;
-  const typewriterEl = document.getElementById("typewriter");
+  const typewriterElement = document.getElementById("typewriter");
 
   function typeEffect() {
-    if (isDeleting) {
-      currentTitle = titles[index].substring(0, charIndex--);
-    } else {
-      currentTitle = titles[index].substring(0, charIndex++);
-    }
-    typewriterEl.textContent = currentTitle;
-
-    if (!isDeleting && charIndex === titles[index].length) {
-      setTimeout(() => isDeleting = true, 1000);
+    const currentTitle = titles[index];
+    const currentText = isDeleting
+      ? currentTitle.substring(0, charIndex--)
+      : currentTitle.substring(0, charIndex++);
+    typewriterElement.textContent = currentText;
+    if (!isDeleting && charIndex === currentTitle.length) {
+      setTimeout(() => (isDeleting = true), 1000);
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
       index = (index + 1) % titles.length;
     }
     setTimeout(typeEffect, isDeleting ? 60 : 120);
   }
-  
   typeEffect();
 </script>
-<script> 
+
+<script>
+  // PWA सर्विस वर्कर और इंस्टॉल बटन का मौजूदा JavaScript कोड
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      // Service Worker ko register karo (sahi path use karo)
       navigator.serviceWorker.register('sw.js')
         .then(reg => console.log('✅ Service Worker: Registered'))
         .catch(err => console.log(`❌ Service Worker: Error: ${err}`));
     });
   }
 
-  let deferredPrompt; 
+  let deferredPrompt;
   const installBtn = document.getElementById('install-button');
-  
-  
 
-  // Jab browser "install" option ready karega
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
     if (installBtn) {
-      installBtn.style.display = 'inline-block'; // Button show karo
+      installBtn.style.display = 'inline-block';
     }
   });
 
-  // Jab user button click karega
   if (installBtn) {
     installBtn.addEventListener('click', () => {
       if (deferredPrompt) {
@@ -1915,8 +1986,115 @@
     });
   }
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('pwa-modal');
+    const btn = document.getElementById('pwa-info-btn');
+    const closeBtn = document.getElementsByClassName('close-btn')[0];
+
+    if (btn) {
+      btn.onclick = function() {
+        modal.style.display = 'flex';
+        setTimeout(() => {
+          modal.classList.add('active');
+        }, 10);
+      }
+    }
+
+    if (closeBtn) {
+      closeBtn.onclick = function() {
+        modal.classList.remove('active');
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 300);
+      }
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.classList.remove('active');
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 300);
+      }
+    }
+  });
+</script>
+  <!-- yaha pe tera pura HTML content khatam hoga -->
+
+  <!-- ✅ Add this script at the very end -->
+  <script>
+    const pwaBtn = document.getElementById("pwa-info-btn");
+    const pwaModal = document.createElement("div");
+    pwaModal.classList.add("pwa-modal");
+    pwaModal.innerHTML = `
+      <div class="pwa-modal-content">
+        <span class="pwa-close-btn">&times;</span>
+        <h2>📲 PWA Information</h2>
+        <p>This portfolio works as a Progressive Web App (PWA).
+           You can install it on your device for a native-like experience.</p>
+      </div>
+    `;
+    document.body.appendChild(pwaModal);
+
+    const closeBtn = pwaModal.querySelector(".pwa-close-btn");
+
+    pwaBtn.addEventListener("click", () => {
+      pwaModal.style.display = "block";
+    });
+
+    closeBtn.addEventListener("click", () => {
+      pwaModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+      if (event.target === pwaModal) {
+        pwaModal.style.display = "none";
+      }
+    });
+  </script>
 </body>
 </html>
+  <!-- yaha pe tera pura HTML content khatam hoga -->
+
+  <!-- ✅ Add this script at the very end -->
+  <script>
+    const pwaBtn = document.getElementById("pwa-info-btn");
+    const pwaModal = document.createElement("div");
+    pwaModal.classList.add("pwa-modal");
+    pwaModal.innerHTML = `
+      <div class="pwa-modal-content">
+        <span class="pwa-close-btn">&times;</span>
+        <h2>📲 PWA Information</h2>
+        <p>This portfolio works as a Progressive Web App (PWA).
+           You can install it on your device for a native-like experience.</p>
+      </div>
+    `;
+    document.body.appendChild(pwaModal);
+
+    const closeBtn = pwaModal.querySelector(".pwa-close-btn");
+
+    pwaBtn.addEventListener("click", () => {
+      pwaModal.style.display = "block";
+    });
+
+    closeBtn.addEventListener("click", () => {
+      pwaModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+      if (event.target === pwaModal) {
+        pwaModal.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+
 
 
 
