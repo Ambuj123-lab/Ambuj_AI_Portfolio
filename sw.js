@@ -1,15 +1,10 @@
-const CACHE_NAME = 'ambuj-portfolio-cache-v7'; // v6 को v7 कर दो ताकि पुराना कैश हटे
+const CACHE_NAME = 'ambuj-portfolio-cache-v8'; // v8 पर अपडेट करें
 const urlsToCache = [
-  '/Ambuj_AI_Portfolio/', // एब्सोल्यूट पाथ
+  '/Ambuj_AI_Portfolio/',
   '/Ambuj_AI_Portfolio/index.html',
   '/Ambuj_AI_Portfolio/icons/icon-192x192.png',
   '/Ambuj_AI_Portfolio/icons/icon-512x512.png',
-  '/Ambuj_AI_Portfolio/favicon.ico' // favicon जोड़ो (अगर बनाया है)
-  // अगर PDFs जोड़नी हैं, तो नीचे जैसे लाइनें जोड़ सकते हो:
-  // '/Ambuj_AI_Portfolio/pdfs/presentation1.pdf',
-  // '/Ambuj_AI_Portfolio/pdfs/presentation2.pdf',
-  // '/Ambuj_AI_Portfolio/pdfs/presentation3.pdf',
-  // '/Ambuj_AI_Portfolio/pdfs/presentation4.pdf'
+  '/Ambuj_AI_Portfolio/favicon.ico', // favicon को कैश करें
 ];
 
 self.addEventListener('install', (event) => {
