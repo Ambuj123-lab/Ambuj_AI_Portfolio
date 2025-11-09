@@ -1660,7 +1660,1245 @@
     </div>
   </div>
 </section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate Gallery - Ambuj Kumar Tripathi</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      color: white;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    /* Animations */
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes trophy-bounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-15px) rotate(-5deg); }
+      50% { transform: translateY(0) rotate(0deg); }
+      75% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(220,38,127,0.3); }
+      50% { box-shadow: 0 0 40px rgba(220,38,127,0.6); }
+    }
+
+    /* Main Container */
+    #certificate-gallery {
+      max-width: 1400px;
+      margin: 0 auto;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 30px;
+      padding: 3rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    /* Header Section */
+    .header-section {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .trophy-animation {
+      display: inline-block;
+      font-size: 5rem;
+      color: #FCD34D;
+      animation: trophy-bounce 2s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(252,211,77,0.6));
+      margin-bottom: 1.5rem;
+    }
+
+    .main-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, #FCD34D, #F59E0B, #DC267F, #9333EA);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradient 3s ease infinite;
+    }
+
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-badge {
+      background: rgba(220,38,127,0.2);
+      border: 2px solid rgba(220,38,127,0.4);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #FCA5A5;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .stat-badge:hover {
+      background: rgba(220,38,127,0.3);
+      transform: translateY(-5px);
+    }
+
+    .instruction-text {
+      color: rgba(255,255,255,0.7);
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+
+    /* Category Section */
+    .cert-category {
+      margin-bottom: 3rem;
+    }
+
+    .category-header {
+      background: linear-gradient(135deg, rgba(220,38,127,0.2), rgba(147,51,234,0.2));
+      border: 2px solid rgba(220,38,127,0.4);
+      border-radius: 20px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .category-header:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 40px rgba(220,38,127,0.3);
+    }
+
+    .category-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .category-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #DC267F, #9333EA);
+      box-shadow: 0 5px 20px rgba(220,38,127,0.4);
+    }
+
+    .category-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .category-subtitle {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+    }
+
+    .cert-count {
+      background: rgba(220,38,127,0.3);
+      border: 2px solid rgba(220,38,127,0.5);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      color: #FCA5A5;
+    }
+
+    /* Certificate Grid */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Certificate Card */
+    .cert-card {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-15px) scale(1.03);
+      border-color: rgba(220,38,127,0.7);
+      box-shadow: 0 30px 70px rgba(220,38,127,0.5);
+      animation: pulse-glow 1.5s ease-in-out infinite;
+    }
+
+    .cert-image-container {
+      position: relative;
+      width: 100%;
+      padding-top: 70%;
+      background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(20,20,40,0.4));
+      overflow: hidden;
+    }
+
+    .cert-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
+    }
+
+    .cert-card:hover .cert-img {
+      transform: scale(1.1);
+    }
+
+    .cert-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .cert-card:hover .cert-overlay {
+      opacity: 1;
+    }
+
+    .cert-overlay i {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: #DC267F;
+    }
+
+    .cert-overlay p {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .cert-details {
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    }
+
+    .cert-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: white;
+      line-height: 1.4;
+    }
+
+    .cert-issuer {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+    }
+
+    .verified-icon {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: white;
+      box-shadow: 0 5px 20px rgba(16,185,129,0.6);
+      z-index: 10;
+    }
+
+    /* Journey Highlight */
+    .journey-section {
+      margin-top: 4rem;
+      padding: 3rem;
+      background: linear-gradient(135deg, rgba(220,38,127,0.15), rgba(147,51,234,0.15));
+      border: 3px solid rgba(220,38,127,0.4);
+      border-radius: 25px;
+      position: relative;
+      overflow: hidden;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .journey-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(220,38,127,0.2), transparent 70%);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .journey-content {
+      position: relative;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .journey-icon {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #DC267F, #A78BFA);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      flex-shrink: 0;
+      box-shadow: 0 15px 50px rgba(220,38,127,0.5);
+    }
+
+    .journey-text {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .journey-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      background: linear-gradient(to right, #FCD34D, #DC267F);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .journey-desc {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.15rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .journey-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .journey-tag {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.7rem 1.3rem;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .journey-tag:hover {
+      background: rgba(220,38,127,0.2);
+      border-color: rgba(220,38,127,0.4);
+      transform: translateY(-3px);
+    }
+
+    .journey-goal {
+      background: rgba(220,38,127,0.15);
+      border-left: 4px solid #DC267F;
+      padding: 1.2rem;
+      border-radius: 10px;
+      color: #FCA5A5;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    /* Modal Viewer - FULL SIZE FIT */
+    .modal-viewer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.97);
+      backdrop-filter: blur(20px);
+    }
+
+    .modal-viewer.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-controls {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      z-index: 10001;
+    }
+
+    .modal-btn {
+      background: rgba(220,38,127,0.4);
+      border: 2px solid rgba(220,38,127,0.6);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .modal-btn:hover {
+      background: rgba(220,38,127,0.9);
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(220,38,127,0.5);
+    }
+
+    .nav-buttons {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 30px;
+      right: 30px;
+      display: flex;
+      justify-content: space-between;
+      z-index: 10001;
+      pointer-events: none;
+    }
+
+    .nav-btn {
+      width: 70px;
+      height: 70px;
+      background: rgba(220,38,127,0.4);
+      border: 2px solid rgba(220,38,127,0.6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      pointer-events: all;
+    }
+
+    .nav-btn:hover {
+      background: rgba(220,38,127,0.9);
+      transform: scale(1.15);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .modal-content-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 20px 100px;
+      gap: 1.5rem;
+    }
+
+    /* FULL CERTIFICATE DISPLAY - PURA DIKHEGA */
+    .cert-display-box {
+      background: rgba(10,10,20,0.95);
+      border: 3px solid rgba(220,38,127,0.5);
+      border-radius: 20px;
+      padding: 1rem;
+      box-shadow: 0 30px 80px rgba(220,38,127,0.5);
+      width: 90vw;
+      max-width: 1400px;
+      max-height: 75vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .full-cert-img {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 10px;
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
+    }
+
+    .cert-info-display {
+      text-align: center;
+      color: white;
+    }
+
+    .cert-counter {
+      background: rgba(220,38,127,0.3);
+      border: 2px solid rgba(220,38,127,0.5);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      color: #FCA5A5;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    .cert-modal-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .cert-modal-provider {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 0.5rem;
+    }
+
+    .copyright-badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(251,191,36,0.15);
+      border: 1px solid rgba(251,191,36,0.3);
+      color: #FCD34D;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      gap: 0.4rem;
+    }
+
+    .copyright-badge i {
+      font-size: 0.7rem;
+    }
+
+    .modal-hints {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+    }
+
+    .modal-hints span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Loading Animation */
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 5px solid rgba(220,38,127,0.3);
+      border-top-color: #DC267F;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .glass-card {
+        padding: 1.5rem;
+      }
+
+      .main-title {
+        font-size: 2rem;
+      }
+
+      .trophy-animation {
+        font-size: 3.5rem;
+      }
+
+      .cert-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .journey-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .journey-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .journey-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 3rem;
+      }
+
+      .journey-title {
+        font-size: 1.6rem;
+      }
+
+      .modal-btn {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.95rem;
+      }
+
+      .nav-btn {
+        width: 55px;
+        height: 55px;
+        font-size: 1.5rem;
+      }
+
+      .nav-buttons {
+        left: 15px;
+        right: 15px;
+      }
+
+      .modal-content-wrapper {
+        padding: 100px 15px 80px;
+      }
+
+      .cert-display-box {
+        padding: 1rem;
+        max-height: calc(100vh - 200px);
+      }
+
+      .full-cert-img {
+        max-height: calc(100vh - 230px);
+      }
+
+      .cert-modal-title {
+        font-size: 1.3rem;
+      }
+    }
+
+    /* Prevent Copy/Select/Drag/Right-click */
+    img {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      pointer-events: none;
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+    }
+
+    * {
+      -webkit-touch-callout: none;
+    }
+  </style>
+</head>
+<body>
+
+<section id="certificate-gallery">
+  <div class="glass-card">
+    
+    <!-- Header -->
+    <div class="header-section">
+      <div class="trophy-animation">
+        <i class="fas fa-trophy"></i>
+      </div>
+      
+      <h1 class="main-title">Industry Certifications</h1>
+      
+      <div class="stats-container">
+        <div class="stat-badge">
+          <i class="fas fa-certificate"></i>
+          <span>16 Certifications</span>
+        </div>
+        <div class="stat-badge">
+          <i class="fas fa-graduation-cap"></i>
+          <span>3 Platforms</span>
+        </div>
+        <div class="stat-badge">
+          <i class="fas fa-rocket"></i>
+          <span>Self Learning Journey</span>
+        </div>
+      </div>
+      
+      <p class="instruction-text">
+        <i class="fas fa-hand-pointer"></i> Click any certificate to view full size
+      </p>
+    </div>
+
+    <!-- Google Cloud -->
+    <div class="cert-category">
+      <div class="category-header">
+        <div class="category-info">
+          <div class="category-icon">G</div>
+          <div>
+            <h2 class="category-title">Google Cloud Platform</h2>
+            <p class="category-subtitle">AI & Cloud Computing</p>
+          </div>
+        </div>
+        <div class="cert-count">6 Certs</div>
+      </div>
+      
+      <div class="cert-grid">
+        <div class="cert-card" onclick="openCert(0)">
+          <div class="cert-image-container">
+            <img src="certificates/google-prompt-vertex-ai.png" alt="Prompt Design" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Prompt Design in Vertex AI</h3>
+            <p class="cert-issuer">Google Cloud Skills Boost</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(1)">
+          <div class="cert-image-container">
+            <img src="certificates/google-gemini-imagen.png" alt="Gemini Imagen" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Build AI Apps with Gemini & Imagen</h3>
+            <p class="cert-issuer">Google Cloud Skills Boost</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(2)">
+          <div class="cert-image-container">
+            <img src="certificates/google-vertex-ai-gemini.png" alt="Vertex AI" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Generative AI with Vertex AI</h3>
+            <p class="cert-issuer">Google Cloud Skills Boost</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(3)">
+          <div class="cert-image-container">
+            <img src="certificates/google-website-gcp.png" alt="GCP Website" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Build a Website on Google Cloud</h3>
+            <p class="cert-issuer">Google Cloud Skills Boost</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(4)">
+          <div class="cert-image-container">
+            <img src="certificates/google-tensorflow-images.png" alt="TensorFlow" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Classify Images with TensorFlow</h3>
+            <p class="cert-issuer">Google Cloud Skills Boost</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(5)">
+          <div class="cert-image-container">
+            <img src="certificates/google-gemini-streamlit.png" alt="Streamlit" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">GenAI Apps with Gemini & Streamlit</h3>
+            <p class="cert-issuer">Google Cloud Skills Boost</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IBM WatsonX -->
+    <div class="cert-category">
+      <div class="category-header">
+        <div class="category-info">
+          <div class="category-icon">IBM</div>
+          <div>
+            <h2 class="category-title">IBM WatsonX AI</h2>
+            <p class="category-subtitle">Artificial Intelligence & Data Science</p>
+          </div>
+        </div>
+        <div class="cert-count">5 Certs</div>
+      </div>
+      
+      <div class="cert-grid">
+        <div class="cert-card" onclick="openCert(6)">
+          <div class="cert-image-container">
+            <img src="certificates/ibm-ai-fundamentals.png" alt="AI Fundamentals" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">AI Fundamentals</h3>
+            <p class="cert-issuer">IBM WatsonX</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(7)">
+          <div class="cert-image-container">
+            <img src="certificates/ibm-generative-ai.png" alt="Generative AI" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Generative AI in Action</h3>
+            <p class="cert-issuer">IBM WatsonX</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(8)">
+          <div class="cert-image-container">
+            <img src="certificates/ibm-deep-learning.png" alt="Deep Learning" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Deep Learning Essentials</h3>
+            <p class="cert-issuer">IBM WatsonX</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(9)">
+          <div class="cert-image-container">
+            <img src="certificates/ibm-chatbot-level1.png" alt="Chatbot" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Build Your Own Chatbot - Level 1</h3>
+            <p class="cert-issuer">IBM WatsonX</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(10)">
+          <div class="cert-image-container">
+            <img src="certificates/python-data-science.png" alt="Python" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Python for Data Science</h3>
+            <p class="cert-issuer">IBM WatsonX</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Industry Programs -->
+    <div class="cert-category">
+      <div class="category-header">
+        <div class="category-info">
+          <div class="category-icon"><i class="fas fa-building"></i></div>
+          <div>
+            <h2 class="category-title">Industry Experience Programs</h2>
+            <p class="category-subtitle">Virtual Simulations & Professional Training</p>
+          </div>
+        </div>
+        <div class="cert-count">5 Certs</div>
+      </div>
+      
+      <div class="cert-grid">
+        <div class="cert-card" onclick="openCert(11)">
+          <div class="cert-image-container">
+            <img src="certificates/aws-solutions-architecture.png" alt="AWS" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">AWS Solutions Architecture Simulation</h3>
+            <p class="cert-issuer">Amazon Web Services</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(12)">
+          <div class="cert-image-container">
+            <img src="certificates/deloitte-data-analytics.png" alt="Deloitte" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Data Analytics Virtual Experience</h3>
+            <p class="cert-issuer">Deloitte</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(13)">
+          <div class="cert-image-container">
+            <img src="certificates/pwc-digital-assurance.png" alt="PwC" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Digital Assurance & Transparency</h3>
+            <p class="cert-issuer">PwC</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(14)">
+          <div class="cert-image-container">
+            <img src="certificates/siemens-forage.png" alt="Siemens" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Siemens Forage Completion Program</h3>
+            <p class="cert-issuer">Siemens AG</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(15)">
+          <div class="cert-image-container">
+            <img src="certificates/linux-ethical-ai.png" alt="Linux Foundation" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Ethical Principles for Conversational AI</h3>
+            <p class="cert-issuer">The Linux Foundation</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Journey Section -->
+    <div class="journey-section">
+      <div class="journey-glow"></div>
+      <div class="journey-content">
+        <div class="journey-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <div class="journey-text">
+          <h2 class="journey-title">Self Learning Journey 🚀</h2>
+          <p class="journey-desc">
+            Telecom Engineer transitioning to AI Specialist through Google Cloud, IBM WatsonX, and Industry Simulation programs. 
+            Applied learnings to build real-world AI projects with live demos.
+          </p>
+          <div class="journey-tags">
+            <span class="journey-tag"><i class="fab fa-google"></i> Google Cloud Skills Boost</span>
+            <span class="journey-tag"><i class="fas fa-robot"></i> IBM WatsonX</span>
+            <span class="journey-tag"><i class="fas fa-building"></i> Industry Simulations</span>
+            <span class="journey-tag"><i class="fas fa-project-diagram"></i> Hands-on Projects</span>
+          </div>
+          <div class="journey-goal">
+            <i class="fas fa-bullseye"></i>
+            <strong>Career Goal:</strong> Entry-Level AI/Prompt Engineer → Machine Learning Engineer → AI Specialist
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Modal Viewer -->
+<div class="modal-viewer" id="certModal">
+  <div class="modal-controls">
+    <button class="modal-btn" onclick="closeCert()">
+      <i class="fas fa-arrow-left"></i>
+      <span>Back</span>
+    </button>
+    <button class="modal-btn" onclick="closeCert()">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn" id="prevBtn" onclick="navigateCert(-1)">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="nav-btn" id="nextBtn" onclick="navigateCert(1)">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <div class="modal-content-wrapper">
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Loading certificate...</p>
+    </div>
+
+    <div class="cert-display-box" id="certDisplay" style="display:none;">
+      <img id="fullCertImg" src="" alt="Certificate" class="full-cert-img">
+    </div>
+
+    <div class="cert-info-display">
+      <div class="cert-counter" id="certCounter">1 / 16</div>
+      <h2 class="cert-modal-title" id="certTitle">Certificate Title</h2>
+      <p class="cert-modal-provider" id="certProvider">Provider</p>
+      <div class="copyright-badge">
+        <i class="fas fa-copyright"></i>
+        <span>Ambuj Kumar Tripathi</span>
+      </div>
+    </div>
+
+    <div class="modal-hints">
+      <span><i class="fas fa-arrows-alt-h"></i> Arrow Keys</span>
+      <span><i class="fas fa-hand-paper"></i> Swipe</span>
+      <span><i class="fas fa-times"></i> ESC</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// Certificate Data
+const certificates = [
+  { src: 'certificates/google-prompt-vertex-ai.png', title: 'Prompt Design in Vertex AI', provider: 'Google Cloud Skills Boost' },
+  { src: 'certificates/google-gemini-imagen.png', title: 'Build AI Apps with Gemini & Imagen', provider: 'Google Cloud Skills Boost' },
+  { src: 'certificates/google-vertex-ai-gemini.png', title: 'Generative AI with Vertex AI', provider: 'Google Cloud Skills Boost' },
+  { src: 'certificates/google-website-gcp.png', title: 'Build a Website on Google Cloud', provider: 'Google Cloud Skills Boost' },
+  { src: 'certificates/google-tensorflow-images.png', title: 'Classify Images with TensorFlow', provider: 'Google Cloud Skills Boost' },
+  { src: 'certificates/google-gemini-streamlit.png', title: 'GenAI Apps with Gemini & Streamlit', provider: 'Google Cloud Skills Boost' },
+  { src: 'certificates/ibm-ai-fundamentals.png', title: 'AI Fundamentals', provider: 'IBM WatsonX' },
+  { src: 'certificates/ibm-generative-ai.png', title: 'Generative AI in Action', provider: 'IBM WatsonX' },
+  { src: 'certificates/ibm-deep-learning.png', title: 'Deep Learning Essentials', provider: 'IBM WatsonX' },
+  { src: 'certificates/ibm-chatbot-level1.png', title: 'Build Your Own Chatbot - Level 1', provider: 'IBM WatsonX' },
+  { src: 'certificates/python-data-science.png', title: 'Python for Data Science', provider: 'IBM WatsonX' },
+  { src: 'certificates/aws-solutions-architecture.png', title: 'AWS Solutions Architecture Simulation', provider: 'Amazon Web Services' },
+  { src: 'certificates/deloitte-data-analytics.png', title: 'Data Analytics Virtual Experience', provider: 'Deloitte' },
+  { src: 'certificates/pwc-digital-assurance.png', title: 'Digital Assurance & Transparency', provider: 'PwC' },
+  { src: 'certificates/siemens-forage.png', title: 'Siemens Forage Completion Program', provider: 'Siemens AG' },
+  { src: 'certificates/linux-ethical-ai.png', title: 'Ethical Principles for Conversational AI', provider: 'The Linux Foundation' }
+];
+
+let currentIndex = 0;
+let touchStartX = 0;
+
+// Open Certificate - FULL SIZE
+function openCert(index) {
+  currentIndex = index;
+  const modal = document.getElementById('certModal');
+  const loading = document.getElementById('loading');
+  const display = document.getElementById('certDisplay');
+  const img = document.getElementById('fullCertImg');
+  const title = document.getElementById('certTitle');
+  const provider = document.getElementById('certProvider');
+  const counter = document.getElementById('certCounter');
+
+  modal.classList.add('active');
+  loading.style.display = 'flex';
+  display.style.display = 'none';
+  document.body.style.overflow = 'hidden';
+
+  const cert = certificates[index];
+  const preloadImg = new Image();
+
+  preloadImg.onload = function() {
+    img.src = cert.src;
+    title.textContent = cert.title;
+    provider.textContent = cert.provider;
+    counter.textContent = `${index + 1} / ${certificates.length}`;
+    
+    loading.style.display = 'none';
+    display.style.display = 'flex';
+    updateNavButtons();
+  };
+
+  preloadImg.onerror = function() {
+    loading.innerHTML = '<i class="fas fa-exclamation-triangle" style="color:#ef4444;font-size:3rem;margin-bottom:1rem;"></i><p>Failed to load</p>';
+    setTimeout(() => closeCert(), 2000);
+  };
+
+  preloadImg.src = cert.src;
+}
+
+// Close Modal
+function closeCert() {
+  document.getElementById('certModal').classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+// Navigate Certificates
+function navigateCert(direction) {
+  const newIndex = currentIndex + direction;
+  if (newIndex >= 0 && newIndex < certificates.length) {
+    openCert(newIndex);
+  }
+}
+
+// Update Navigation Buttons
+function updateNavButtons() {
+  document.getElementById('prevBtn').disabled = currentIndex === 0;
+  document.getElementById('nextBtn').disabled = currentIndex === certificates.length - 1;
+}
+
+// Keyboard Controls
+document.addEventListener('keydown', function(e) {
+  const modal = document.getElementById('certModal');
+  if (!modal.classList.contains('active')) return;
+
+  if (e.key === 'Escape') closeCert();
+  if (e.key === 'ArrowLeft') navigateCert(-1);
+  if (e.key === 'ArrowRight') navigateCert(1);
+});
+
+// Touch/Swipe Support
+document.getElementById('certModal').addEventListener('touchstart', function(e) {
+  touchStartX = e.touches[0].clientX;
+});
+
+document.getElementById('certModal').addEventListener('touchend', function(e) {
+  const touchEndX = e.changedTouches[0].clientX;
+  const diff = touchStartX - touchEndX;
+  
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) navigateCert(1);
+    else navigateCert(-1);
+  }
+});
+
+// Click outside to close
+document.getElementById('certModal').addEventListener('click', function(e) {
+  if (e.target === this) closeCert();
+});
+
+// Prevent right-click, drag, copy
+document.addEventListener('contextmenu', function(e) {
+  if (e.target.tagName === 'IMG') {
+    e.preventDefault();
+    return false;
+  }
+});
+
+document.addEventListener('dragstart', function(e) {
+  if (e.target.tagName === 'IMG') {
+    e.preventDefault();
+    return false;
+  }
+});
+
+// Prevent keyboard shortcuts for save/copy
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+    const modal = document.getElementById('certModal');
+    if (modal.classList.contains('active')) {
+      e.preventDefault();
+      return false;
+    }
+  }
+});
+</script>
+
+</body>
+</html>
 <!-- PROJECTS -->
 <section id="projects" class="py-10">
   <div class="glass-card rounded-2xl p-8 shadow">
