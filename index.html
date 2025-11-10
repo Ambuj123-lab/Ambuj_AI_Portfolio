@@ -2374,7 +2374,7 @@
       <div class="stats-container">
         <div class="stat-badge">
           <i class="fas fa-certificate"></i>
-          <span>16 Certifications</span>
+          <span>18 Certifications</span>
         </div>
         <div class="stat-badge">
           <i class="fas fa-graduation-cap"></i>
@@ -2598,7 +2598,7 @@
             <p class="category-subtitle">Virtual Simulations & Professional Training</p>
           </div>
         </div>
-        <div class="cert-count">5 Certs</div>
+        <div class="cert-count">7 Certs</div>
       </div>
       
       <div class="cert-grid">
@@ -2676,6 +2676,36 @@
           </div>
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
+
+        <div class="cert-card" onclick="openCert(16)">
+          <div class="cert-image-container">
+            <img src="certificates/datacom-ai-workplace.png" alt="Datacom" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Partnering with AI in the Workplace</h3>
+            <p class="cert-issuer">Datacom - Forage</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+
+        <div class="cert-card" onclick="openCert(17)">
+          <div class="cert-image-container">
+            <img src="certificates/tata-genai-analytics.png" alt="Tata iQ" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">GenAI Powered Data Analytics</h3>
+            <p class="cert-issuer">Tata iQ - Forage</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
       </div>
     </div>
 
@@ -2741,7 +2771,7 @@
     </div>
 
     <div class="cert-info-display">
-      <div class="cert-counter" id="certCounter">1 / 16</div>
+      <div class="cert-counter" id="certCounter">1 / 18</div>
       <h2 class="cert-modal-title" id="certTitle">Certificate Title</h2>
       <p class="cert-modal-provider" id="certProvider">Provider</p>
       <div class="copyright-badge">
@@ -2776,7 +2806,9 @@ const certificates = [
   { src: 'certificates/deloitte-data-analytics.png', title: 'Data Analytics Virtual Experience', provider: 'Deloitte' },
   { src: 'certificates/pwc-digital-assurance.png', title: 'Digital Assurance & Transparency', provider: 'PwC' },
   { src: 'certificates/siemens-forage.png', title: 'Siemens Forage Completion Program', provider: 'Siemens AG' },
-  { src: 'certificates/linux-ethical-ai.png', title: 'Ethical Principles for Conversational AI', provider: 'The Linux Foundation' }
+  { src: 'certificates/linux-ethical-ai.png', title: 'Ethical Principles for Conversational AI', provider: 'The Linux Foundation' },
+  { src: 'certificates/datacom-ai-workplace.png', title: 'Partnering with AI in the Workplace', provider: 'Datacom - Forage' },
+  { src: 'certificates/tata-genai-analytics.png', title: 'GenAI Powered Data Analytics', provider: 'Tata iQ - Forage' }
 ];
 
 let currentIndex = 0;
