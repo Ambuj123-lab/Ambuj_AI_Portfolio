@@ -642,7 +642,7 @@
                      bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500
                      hover:from-yellow-500 hover:to-pink-500 hover:scale-105
                      text-white tracking-wide">
-        📲 Add Ambuj AI to Device
+        📲 Install Ambuj AI 
       </button>
     </div>
     <div class="flex gap-3">
@@ -2359,7 +2359,6 @@
   </style>
 </head>
 <body>
-
 <section id="certificate-gallery">
   <div class="glass-card">
     
@@ -2374,11 +2373,11 @@
       <div class="stats-container">
         <div class="stat-badge">
           <i class="fas fa-certificate"></i>
-          <span>18 Certifications</span>
+          <span>19 Certifications</span>
         </div>
         <div class="stat-badge">
           <i class="fas fa-graduation-cap"></i>
-          <span>3 Platforms</span>
+          <span>4 Platforms</span>
         </div>
         <div class="stat-badge">
           <i class="fas fa-rocket"></i>
@@ -2389,6 +2388,37 @@
       <p class="instruction-text">
         <i class="fas fa-hand-pointer"></i> Click any certificate to view full size
       </p>
+    </div>
+    
+    <!-- NVIDIA DLI -->
+    <div class="cert-category">
+      <div class="category-header">
+        <div class="category-info">
+          <div class="category-icon">N</div>
+          <div>
+            <h2 class="category-title">NVIDIA Deep Learning Institute</h2>
+            <p class="category-subtitle">RAG & LLM Implementation</p>
+          </div>
+        </div>
+        <div class="cert-count">1 Cert</div>
+      </div>
+      
+      <div class="cert-grid">
+        <div class="cert-card" onclick="openCert(0)">
+          <div class="cert-image-container">
+            <img src="certificates/nvidia-rag-llm.png" alt="RAG-LLM" class="cert-img">
+            <div class="cert-overlay">
+              <i class="fas fa-search-plus"></i>
+              <p>View Certificate</p>
+            </div>
+          </div>
+          <div class="cert-details">
+            <h3 class="cert-name">Building RAG Agents with LLMs</h3>
+            <p class="cert-issuer">NVIDIA Deep Learning Institute</p>
+          </div>
+          <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
+        </div>
+      </div>
     </div>
 
     <!-- Google Cloud -->
@@ -2405,7 +2435,7 @@
       </div>
       
       <div class="cert-grid">
-        <div class="cert-card" onclick="openCert(0)">
+        <div class="cert-card" onclick="openCert(1)">
           <div class="cert-image-container">
             <img src="certificates/google-prompt-vertex-ai.png" alt="Prompt Design" class="cert-img">
             <div class="cert-overlay">
@@ -2420,7 +2450,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(1)">
+        <div class="cert-card" onclick="openCert(2)">
           <div class="cert-image-container">
             <img src="certificates/google-gemini-imagen.png" alt="Gemini Imagen" class="cert-img">
             <div class="cert-overlay">
@@ -2435,7 +2465,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(2)">
+        <div class="cert-card" onclick="openCert(3)">
           <div class="cert-image-container">
             <img src="certificates/google-vertex-ai-gemini.png" alt="Vertex AI" class="cert-img">
             <div class="cert-overlay">
@@ -2450,7 +2480,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(3)">
+        <div class="cert-card" onclick="openCert(4)">
           <div class="cert-image-container">
             <img src="certificates/google-website-gcp.png" alt="GCP Website" class="cert-img">
             <div class="cert-overlay">
@@ -2465,7 +2495,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(4)">
+        <div class="cert-card" onclick="openCert(5)">
           <div class="cert-image-container">
             <img src="certificates/google-tensorflow-images.png" alt="TensorFlow" class="cert-img">
             <div class="cert-overlay">
@@ -2480,7 +2510,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(5)">
+        <div class="cert-card" onclick="openCert(6)">
           <div class="cert-image-container">
             <img src="certificates/google-gemini-streamlit.png" alt="Streamlit" class="cert-img">
             <div class="cert-overlay">
@@ -2511,7 +2541,7 @@
       </div>
       
       <div class="cert-grid">
-        <div class="cert-card" onclick="openCert(6)">
+        <div class="cert-card" onclick="openCert(7)">
           <div class="cert-image-container">
             <img src="certificates/ibm-ai-fundamentals.png" alt="AI Fundamentals" class="cert-img">
             <div class="cert-overlay">
@@ -2526,7 +2556,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(7)">
+        <div class="cert-card" onclick="openCert(8)">
           <div class="cert-image-container">
             <img src="certificates/ibm-generative-ai.png" alt="Generative AI" class="cert-img">
             <div class="cert-overlay">
@@ -2541,7 +2571,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(8)">
+        <div class="cert-card" onclick="openCert(9)">
           <div class="cert-image-container">
             <img src="certificates/ibm-deep-learning.png" alt="Deep Learning" class="cert-img">
             <div class="cert-overlay">
@@ -2556,7 +2586,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(9)">
+        <div class="cert-card" onclick="openCert(10)">
           <div class="cert-image-container">
             <img src="certificates/ibm-chatbot-level1.png" alt="Chatbot" class="cert-img">
             <div class="cert-overlay">
@@ -2571,7 +2601,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(10)">
+        <div class="cert-card" onclick="openCert(11)">
           <div class="cert-image-container">
             <img src="certificates/python-data-science.png" alt="Python" class="cert-img">
             <div class="cert-overlay">
@@ -2602,7 +2632,7 @@
       </div>
       
       <div class="cert-grid">
-        <div class="cert-card" onclick="openCert(11)">
+        <div class="cert-card" onclick="openCert(12)">
           <div class="cert-image-container">
             <img src="certificates/aws-solutions-architecture.png" alt="AWS" class="cert-img">
             <div class="cert-overlay">
@@ -2617,7 +2647,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(12)">
+        <div class="cert-card" onclick="openCert(13)">
           <div class="cert-image-container">
             <img src="certificates/deloitte-data-analytics.png" alt="Deloitte" class="cert-img">
             <div class="cert-overlay">
@@ -2632,7 +2662,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(13)">
+        <div class="cert-card" onclick="openCert(14)">
           <div class="cert-image-container">
             <img src="certificates/pwc-digital-assurance.png" alt="PwC" class="cert-img">
             <div class="cert-overlay">
@@ -2647,7 +2677,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(14)">
+        <div class="cert-card" onclick="openCert(15)">
           <div class="cert-image-container">
             <img src="certificates/siemens-forage.png" alt="Siemens" class="cert-img">
             <div class="cert-overlay">
@@ -2662,7 +2692,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(15)">
+        <div class="cert-card" onclick="openCert(16)">
           <div class="cert-image-container">
             <img src="certificates/linux-ethical-ai.png" alt="Linux Foundation" class="cert-img">
             <div class="cert-overlay">
@@ -2677,7 +2707,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(16)">
+        <div class="cert-card" onclick="openCert(17)">
           <div class="cert-image-container">
             <img src="certificates/datacom-ai-workplace.png" alt="Datacom" class="cert-img">
             <div class="cert-overlay">
@@ -2692,7 +2722,7 @@
           <div class="verified-icon"><i class="fas fa-check-circle"></i></div>
         </div>
 
-        <div class="cert-card" onclick="openCert(17)">
+        <div class="cert-card" onclick="openCert(18)">
           <div class="cert-image-container">
             <img src="certificates/tata-genai-analytics.png" alt="Tata iQ" class="cert-img">
             <div class="cert-overlay">
@@ -2708,7 +2738,8 @@
         </div>
       </div>
     </div>
-
+  </div>
+</section>
     <!-- Journey Section -->
     <div class="journey-section">
       <div class="journey-glow"></div>
@@ -2791,6 +2822,7 @@
 <script>
 // Certificate Data
 const certificates = [
+  { src: 'certificates/nvidia-rag-llm.png', title: 'Building RAG Agents with LLMs', provider: 'NVIDIA Deep Learning Institute' },
   { src: 'certificates/google-prompt-vertex-ai.png', title: 'Prompt Design in Vertex AI', provider: 'Google Cloud Skills Boost' },
   { src: 'certificates/google-gemini-imagen.png', title: 'Build AI Apps with Gemini & Imagen', provider: 'Google Cloud Skills Boost' },
   { src: 'certificates/google-vertex-ai-gemini.png', title: 'Generative AI with Vertex AI', provider: 'Google Cloud Skills Boost' },
@@ -3127,7 +3159,7 @@ document.addEventListener('keydown', function(e) {
           <span class="px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full text-sm border border-pink-500/30">Netlify</span>
         </div>
         <div class="mt-4">
-          <a href="https://ambuj-prompt-builder.netlify.app/" target="_blank" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold rounded-lg hover:from-indigo-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 hover:shadow-indigo-500/25">
+          <a href="https://ambuj-prompt-nexus.onrender.com/" target="_blank" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold rounded-lg hover:from-indigo-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 hover:shadow-indigo-500/25">
             <i class="fas fa-external-link-alt mr-2"></i>Live Demo
           </a>
         </div>
